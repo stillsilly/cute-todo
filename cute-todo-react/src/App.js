@@ -3,7 +3,40 @@ import './App.scss';
 import './home.scss';
 
 class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            todoList: [{
+                name: '吃饭饭',
+                id: 1,
+                isCompleted: false,
+            }, {
+                name: '喝水',
+                id: 2,
+                isCompleted: false,
+            }, {
+                name: '看书',
+                id: 3,
+                isCompleted: false,
+            }, {
+                name: '运动',
+                id: 4,
+                isCompleted: true,
+            }]
+        };
+    }
+
     render() {
+        const todoList = this.state.todoList
+        const list = todoList.map((item, index) => {
+            return (
+                <li className="todo-item">
+                    <input className="complete-checkbox" type="checkbox" checked={item.isCompleted}/>
+                    <input className="item-text" type="text" value={item.name}/>
+                    <button className="btn-delete">删除</button>
+                </li>
+            )
+        })
         return (
             <div className="page-wrapper page-wrapper-home">
                 <h1 className="page-title">代办事项</h1>
@@ -21,26 +54,7 @@ class App extends Component {
                         <button className="btn-delete-completed">清空已完成</button>
                     </div>
                     <ol className="todo-list">
-                        <li className="todo-item">
-                            <input className="complete-checkbox" type="checkbox"/>
-                            <input className="item-text" type="text" value="吃饭饭"/>
-                            <button className="btn-delete">删除</button>
-                        </li>
-                        <li className="todo-item">
-                            <input className="complete-checkbox" type="checkbox"/>
-                            <input className="item-text" type="text" value="喝水"/>
-                            <button className="btn-delete">删除</button>
-                        </li>
-                        <li className="todo-item">
-                            <input className="complete-checkbox" type="checkbox"/>
-                            <input className="item-text" type="text" value="看书"/>
-                            <button className="btn-delete">删除</button>
-                        </li>
-                        <li className="todo-item">
-                            <input className="complete-checkbox" type="checkbox"/>
-                            <input className="item-text" type="text" value="运动"/>
-                            <button className="btn-delete">删除</button>
-                        </li>
+                        {list}
                     </ol>
                     <div className="row-bottom">
                             <span className="info-count">
