@@ -6,6 +6,7 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            todoInput: '',
             currentType: 'all',  // 一共有三种， all active completed
             todoList: [{
                 name: '吃饭饭',
@@ -24,31 +25,77 @@ class App extends Component {
                 id: 4,
                 isCompleted: true,
             }],
-            activeCount: 0  // 这个值是在render函数里算出来的，需要在state里声明一个吗，现在写的这个没有用到
+            activeCount: 0
         };
+
+    }
+
+    handleEnterAddInput(e) {
+        if (e.keyCode === 13) {
+            this.addTodo()
+        }
+    }
+
+    addTodo() {
+        const activeCount = this.state.todoList.filter((item) => {
+            return !item.isCompleted
+        }).length
+        let id = activeCount + 2
+        // 不能直接push
+        this.setState({
+            todoList: this.state.todoList.concat({
+                name: this.state.todoInput,
+                id,
+                isCompleted: false,
+            }),
+            todoInput: '',
+            activeCount: this.state.activeCount + 1
+        })
+
+    }
+
+    completeTodo() {
+
+    }
+
+    handleChangeTodoItem() {
+
     }
 
     render() {
         const todoList = this.state.todoList
-        const activeCount = todoList.filter((item) => {
+        const activeCount = this.state.todoList.filter((item) => {
             return !item.isCompleted
         }).length
         const list = todoList.map((item, index) => {
             return (
-                <li className="todo-item">
-                    <input className="complete-checkbox" type="checkbox" checked={item.isCompleted}/>
-                    <input className="item-text" type="text" value={item.name}/>
+                <li className="todo-item" key={item.id}>
+                    <input className="complete-checkbox" type="checkbox" checked={item.isCompleted}
+                           onChange={() => this.completeTodo(index)}/>
+                    <input className="item-text"
+                           type="text"
+                           value={item.name}
+                           onChange={() => this.handleChangeTodoItem()}
+                    />
                     <button className="btn-delete">删除</button>
                 </li>
             )
         })
+
         return (
             <div className="page-wrapper page-wrapper-home">
                 <h1 className="page-title">代办事项</h1>
                 <div className="section-main">
                     <div className="row-input">
-                        <input className="input-todo" type="text" placeholder="添加代办事项，回车可保存"/>
-                        <button className="btn-confirm">确定</button>
+                        <input className="input-todo" type="text" placeholder="添加代办事项，回车可保存"
+                               value={this.state.todoInput}
+                               onChange={e => this.setState({todoInput: e.target.value})}
+                               onKeyUp={e => this.handleEnterAddInput(e)}
+                        />
+                        <button className="btn-confirm"
+                                onClick={() => this.addTodo()}
+                        >确定
+                        </button>
                     </div>
                     <div className="row-operate">
                         <ul className="filter-btn-list">
