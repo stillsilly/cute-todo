@@ -1,0 +1,126 @@
+.page-wrapper-home {
+  width: 650px;
+  margin: auto; }
+  .page-wrapper-home .page-title {
+    color: #667fdd;
+    line-height: 1.8; }
+  .page-wrapper-home .section-main .row-input {
+    width: 100%;
+    height: 30px;
+    position: relative; }
+    .page-wrapper-home .section-main .row-input .input-todo {
+      width: 580px;
+      height: 35px;
+      line-height: 35px;
+      padding-left: 10px;
+      outline: none;
+      cursor: pointer;
+      border: 1px solid #ddd;
+      background-color: transparent;
+      box-shadow: none;
+      vertical-align: top; }
+      .page-wrapper-home .section-main .row-input .input-todo:focus {
+        border-color: #667fdd;
+        outline-offset: 0px;
+        outline: none; }
+    .page-wrapper-home .section-main .row-input .btn-confirm {
+      width: 70px;
+      height: 35px;
+      line-height: 35px;
+      vertical-align: top;
+      background: #667fdd;
+      border: 0;
+      outline: none;
+      position: relative;
+      left: -1px;
+      color: #fff;
+      cursor: pointer; }
+    .page-wrapper-home .section-main .row-input .btn-toggle-collapse {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 30px;
+      line-height: 30px;
+      width: 50px;
+      background: transparent;
+      border: none;
+      outline: none; }
+  .page-wrapper-home .section-main .row-operate {
+    margin-top: 35px; }
+    .page-wrapper-home .section-main .row-operate .filter-btn-list {
+      display: inline-block; }
+      .page-wrapper-home .section-main .row-operate .filter-btn-list .btn-filter {
+        border: 1px solid transparent;
+        background: transparent;
+        font-size: 14px;
+        border-radius: 4px;
+        margin-right: 10px;
+        outline: none;
+        color: #1f368b;
+        cursor: pointer; }
+        .page-wrapper-home .section-main .row-operate .filter-btn-list .btn-filter:hover {
+          background: #dbe1f7; }
+        .page-wrapper-home .section-main .row-operate .filter-btn-list .btn-filter:focus {
+          outline: none; }
+        .page-wrapper-home .section-main .row-operate .filter-btn-list .btn-filter.btn-filter_active {
+          background: #b9c5f0; }
+    .page-wrapper-home .section-main .row-operate .btn-delete-completed {
+      float: right;
+      outline: none;
+      border: none;
+      background: #b9c5f0;
+      font-size: 14px;
+      color: #1f368b;
+      padding: 4px 6px;
+      border-radius: 3px;
+      cursor: pointer; }
+  .page-wrapper-home .section-main .todo-list {
+    margin-top: 10px; }
+    .page-wrapper-home .section-main .todo-list .todo-item {
+      position: relative;
+      width: 100%; }
+      .page-wrapper-home .section-main .todo-list .todo-item .complete-checkbox {
+        position: absolute;
+        left: 10px;
+        top: 0;
+        bottom: 0;
+        margin-top: auto;
+        margin-bottom: auto;
+        cursor: pointer; }
+      .page-wrapper-home .section-main .todo-list .todo-item .item-text {
+        padding-left: 30px;
+        height: 40px;
+        line-height: 40px;
+        width: 100%;
+        outline: none;
+        border: none;
+        border-bottom: 1px solid #ddd;
+        color: #333;
+        font-size: 14px; }
+        .page-wrapper-home .section-main .todo-list .todo-item .item-text:focus {
+          outline: none;
+          background: rgba(102, 131, 222, 0.12); }
+      .page-wrapper-home .section-main .todo-list .todo-item .btn-delete {
+        border: none;
+        outline: none;
+        background: #b9c5f0;
+        color: #1f368b;
+        font-size: 12px;
+        height: 20px;
+        line-height: 20px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin-top: auto;
+        margin-bottom: auto;
+        cursor: pointer;
+        border-radius: 3px; }
+  .page-wrapper-home .section-main .row-bottom {
+    margin-top: 20px; }
+    .page-wrapper-home .section-main .row-bottom .info-count {
+      font-size: 14px; }
+      .page-wrapper-home .section-main .row-bottom .info-count .num {
+        color: #667fdd; }
+
+/*# sourceMappingURL=home.css.map */
