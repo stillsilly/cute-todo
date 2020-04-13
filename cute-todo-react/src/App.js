@@ -6,6 +6,7 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            currentType: 'all',  // 一共有三种， all active completed
             todoList: [{
                 name: '吃饭饭',
                 id: 1,
@@ -22,12 +23,16 @@ class App extends Component {
                 name: '运动',
                 id: 4,
                 isCompleted: true,
-            }]
+            }],
+            activeCount: 0  // 这个值是在render函数里算出来的，需要在state里声明一个吗，现在写的这个没有用到
         };
     }
 
     render() {
         const todoList = this.state.todoList
+        const activeCount = todoList.filter((item) => {
+            return !item.isCompleted
+        }).length
         const list = todoList.map((item, index) => {
             return (
                 <li className="todo-item">
@@ -58,7 +63,7 @@ class App extends Component {
                     </ol>
                     <div className="row-bottom">
                             <span className="info-count">
-                            还剩 <span className="num">3</span> 项未完成
+                            还剩 <span className="num">{activeCount}</span> 项未完成
                         </span>
                     </div>
                 </div>
