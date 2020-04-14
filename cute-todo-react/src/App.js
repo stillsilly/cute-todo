@@ -27,23 +27,6 @@ class App extends Component {
                 status: 'completed',
             }],
             todoList: Store.get(),
-            // todoList: [{
-            //     name: '吃饭饭',
-            //     id: 1,
-            //     isCompleted: false,
-            // }, {
-            //     name: '喝水',
-            //     id: 2,
-            //     isCompleted: false,
-            // }, {
-            //     name: '看书',
-            //     id: 3,
-            //     isCompleted: false,
-            // }, {
-            //     name: '运动',
-            //     id: 4,
-            //     isCompleted: true,
-            // }],
             activeCount: 0  // 我需要一个类似 vue 里 computed 的东西，自动根据 todoList 的变化计算 activeCount，现在初始渲染、新增、删除、切换完成状态都要算一遍，有点烦 @todo
         };
 
