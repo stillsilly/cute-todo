@@ -118,6 +118,15 @@ class App extends Component {
         })
     }
 
+    clearCompletedItems() {
+        const todoList = this.state.todoList.filter((item) => {
+            return !item.isCompleted
+        })
+        this.setState({
+            todoList
+        })
+    }
+
     render() {
         const todoList = this.state.todoList
         const activeCount = this.state.todoList.filter((item) => {
@@ -171,7 +180,8 @@ class App extends Component {
                         <div className="filter-btn-list">
                             {statusBtnList}
                         </div>
-                        <button className="btn-delete-completed">清空已完成</button>
+                        <button className="btn-delete-completed" onClick={() => this.clearCompletedItems()}>清空已完成
+                        </button>
                     </div>
                     <ol className="todo-list">
                         {list}
