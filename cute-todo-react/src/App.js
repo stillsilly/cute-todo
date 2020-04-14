@@ -7,7 +7,20 @@ class App extends Component {
         super(props);
         this.state = {
             todoInput: '',
-            currentType: 'all',  // 一共有三种， all active completed
+            currentStatus: 'all',
+            statusList: [{
+                id: 1,
+                name: '全部',
+                status: 'all',
+            }, {
+                id: 2,
+                name: '未完成',
+                status: 'active',
+            }, {
+                id: 3,
+                name: '已完成',
+                status: 'completed',
+            }],
             todoList: [{
                 name: '吃饭饭',
                 id: 1,
@@ -99,12 +112,29 @@ class App extends Component {
         })
     }
 
+    handleChangeStatus(status) {
+        this.setState({
+            currentStatus: status
+        })
+    }
+
     render() {
         const todoList = this.state.todoList
         const activeCount = this.state.todoList.filter((item) => {
             return !item.isCompleted
         }).length
-        const list = todoList.map((item, index) => {
+        const statusBtnList = this.state.statusList.map((item) => {
+            return (
+                <button key={item.id}
+                        className={`btn-filter ${item.status === this.state.currentStatus ? 'btn-filter_active' : ''}`}
+                        onClick={() => this.handleChangeStatus(item.status)}>{item.name}</button>
+            )
+        })
+        const currentTodoList = todoList.filter((item) => {
+            return this.state.currentStatus === 'all' || (this.state.currentStatus === 'active' && !item.isCompleted) || (this.state.currentStatus === 'completed' && item.isCompleted)
+
+        })
+        const list = currentTodoList.map((item, index) => {
             return (
                 <li className="todo-item" key={item.id}>
                     <input className="complete-checkbox"
@@ -139,9 +169,7 @@ class App extends Component {
                     </div>
                     <div className="row-operate">
                         <div className="filter-btn-list">
-                            <button className="btn-filter btn-filter-all btn-filter_active">全部</button>
-                            <button className="btn-filter btn-filter-active">未完成</button>
-                            <button className="btn-filter btn-filter-completed">已完成</button>
+                            {statusBtnList}
                         </div>
                         <button className="btn-delete-completed">清空已完成</button>
                     </div>
