@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import './App.scss';
 import './home.scss';
+import Store from './utils/store'
+
+console.log(Store)
 
 class App extends Component {
     constructor(props) {
@@ -21,23 +24,24 @@ class App extends Component {
                 name: '已完成',
                 status: 'completed',
             }],
-            todoList: [{
-                name: '吃饭饭',
-                id: 1,
-                isCompleted: false,
-            }, {
-                name: '喝水',
-                id: 2,
-                isCompleted: false,
-            }, {
-                name: '看书',
-                id: 3,
-                isCompleted: false,
-            }, {
-                name: '运动',
-                id: 4,
-                isCompleted: true,
-            }],
+            todoList: Store.get(),
+            // todoList: [{
+            //     name: '吃饭饭',
+            //     id: 1,
+            //     isCompleted: false,
+            // }, {
+            //     name: '喝水',
+            //     id: 2,
+            //     isCompleted: false,
+            // }, {
+            //     name: '看书',
+            //     id: 3,
+            //     isCompleted: false,
+            // }, {
+            //     name: '运动',
+            //     id: 4,
+            //     isCompleted: true,
+            // }],
             activeCount: 0  // 我需要一个类似 vue 里 computed 的东西，自动根据 todoList 的变化计算 activeCount，现在初始渲染、新增、删除、切换完成状态都要算一遍，有点烦 @todo
         };
 
@@ -67,7 +71,7 @@ class App extends Component {
             todoInput: '',
             activeCount: this.state.activeCount + 1
         })
-
+        this.save()
     }
 
     toggleCompleteTodo(e, index) {
@@ -80,6 +84,7 @@ class App extends Component {
             todoList,
             activeCount
         })
+        this.save()
     }
 
     handleChangeTodoItem(e, index) {
@@ -92,6 +97,7 @@ class App extends Component {
             todoList,
             activeCount
         })
+        this.save()
     }
 
     handleEnterTodoItemInput(e) {
@@ -110,6 +116,7 @@ class App extends Component {
             todoList,
             activeCount
         })
+        this.save()
     }
 
     handleChangeStatus(status) {
@@ -125,6 +132,15 @@ class App extends Component {
         this.setState({
             todoList
         })
+        this.save()
+    }
+
+    save() {
+        // 这个要怎么办  setState 不能保证会立马更新值，那我也拿不到最新的 先暂时凑合 setTimeout 一下
+        setTimeout(() => {
+            Store.save(this.state.todoList)
+        })
+
     }
 
     render() {
@@ -187,8 +203,8 @@ class App extends Component {
                         {list}
                     </ol>
                     <div className="row-bottom">
-                            <span className="info-count">
-                            还剩 <span className="num">{activeCount}</span> 项未完成
+                        <span className="info-count">还剩
+                            <span className="num"> {activeCount} </span>项未完成
                         </span>
                     </div>
                 </div>
