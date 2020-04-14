@@ -25,7 +25,7 @@ class App extends Component {
                 id: 4,
                 isCompleted: true,
             }],
-            activeCount: 0
+            activeCount: 0  // 我需要一个类似 vue 里 computed 的东西，自动根据 todoList 的变化计算 activeCount，现在初始渲染、新增、删除、切换完成状态都要算一遍，有点烦 @todo
         };
 
     }
@@ -37,6 +37,9 @@ class App extends Component {
     }
 
     addTodo() {
+        if (!this.state.todoInput.trim()) {
+            return
+        }
         const activeCount = this.state.todoList.filter((item) => {
             return !item.isCompleted
         }).length
@@ -44,7 +47,7 @@ class App extends Component {
         // 不能直接push
         this.setState({
             todoList: this.state.todoList.concat({
-                name: this.state.todoInput,
+                name: this.state.todoInput.trim(),
                 id,
                 isCompleted: false,
             }),
@@ -54,12 +57,46 @@ class App extends Component {
 
     }
 
-    completeTodo() {
-
+    toggleCompleteTodo(e, index) {
+        const todoList = this.state.todoList.slice()
+        todoList[index].isCompleted = e.target.checked
+        const activeCount = todoList.filter((item) => {
+            return !item.isCompleted
+        }).length
+        this.setState({
+            todoList,
+            activeCount
+        })
     }
 
-    handleChangeTodoItem() {
+    handleChangeTodoItem(e, index) {
+        const todoList = this.state.todoList.slice()
+        todoList[index].name = (e.target.value || '').trim()
+        const activeCount = todoList.filter((item) => {
+            return !item.isCompleted
+        }).length
+        this.setState({
+            todoList,
+            activeCount
+        })
+    }
 
+    handleEnterTodoItemInput(e) {
+        if (e.keyCode === 13) {
+            e.target.blur()
+        }
+    }
+
+    handleClickDeleteBtn(index) {
+        const todoList = this.state.todoList.slice()
+        todoList.splice(index, 1)
+        const activeCount = todoList.filter((item) => {
+            return !item.isCompleted
+        }).length
+        this.setState({
+            todoList,
+            activeCount
+        })
     }
 
     render() {
@@ -70,14 +107,17 @@ class App extends Component {
         const list = todoList.map((item, index) => {
             return (
                 <li className="todo-item" key={item.id}>
-                    <input className="complete-checkbox" type="checkbox" checked={item.isCompleted}
-                           onChange={() => this.completeTodo(index)}/>
+                    <input className="complete-checkbox"
+                           type="checkbox"
+                           checked={item.isCompleted}
+                           onChange={(e) => this.toggleCompleteTodo(e, index)}/>
                     <input className="item-text"
                            type="text"
                            value={item.name}
-                           onChange={() => this.handleChangeTodoItem()}
+                           onChange={(e) => this.handleChangeTodoItem(e, index)}
+                           onKeyUp={e => this.handleEnterTodoItemInput(e)}
                     />
-                    <button className="btn-delete">删除</button>
+                    <button className="btn-delete" onClick={() => this.handleClickDeleteBtn(index)}>删除</button>
                 </li>
             )
         })
@@ -98,11 +138,11 @@ class App extends Component {
                         </button>
                     </div>
                     <div className="row-operate">
-                        <ul className="filter-btn-list">
+                        <div className="filter-btn-list">
                             <button className="btn-filter btn-filter-all btn-filter_active">全部</button>
                             <button className="btn-filter btn-filter-active">未完成</button>
                             <button className="btn-filter btn-filter-completed">已完成</button>
-                        </ul>
+                        </div>
                         <button className="btn-delete-completed">清空已完成</button>
                     </div>
                     <ol className="todo-list">

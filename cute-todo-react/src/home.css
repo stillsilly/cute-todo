@@ -97,6 +97,8 @@
         border-bottom: 1px solid #ddd;
         color: #333;
         font-size: 14px; }
+        .page-wrapper-home .section-main .todo-list .todo-item .item-text:hover {
+          background: #f8f9fd; }
         .page-wrapper-home .section-main .todo-list .todo-item .item-text:focus {
           outline: none;
           background: rgba(102, 131, 222, 0.12); }

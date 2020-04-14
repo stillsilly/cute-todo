@@ -125,6 +125,9 @@ $color-btn-background: lighten($color-main, 20%);
           border-bottom: 1px solid $color-border-gray;
           color: #333;
           font-size: 14px;
+          &:hover {
+            background: lighten($color-main, 35%)
+          }
           &:focus {
             outline: none;
             background: rgba(102, 131, 222, .12);
