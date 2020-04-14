@@ -2,8 +2,10 @@ import React, {Component} from 'react';
 import './App.scss';
 import './home.scss';
 import Store from './utils/store'
+import Utils from './utils/utils'
 
 console.log(Store)
+console.log(Utils)
 
 class App extends Component {
     constructor(props) {
@@ -60,7 +62,8 @@ class App extends Component {
         const activeCount = this.state.todoList.filter((item) => {
             return !item.isCompleted
         }).length
-        let id = activeCount + 2
+        // 不能用 length + 2，删除几个后，再添加，会有重复的
+        let id = Utils.getUniqueId()
         // 不能直接push
         this.setState({
             todoList: this.state.todoList.concat({
@@ -69,7 +72,7 @@ class App extends Component {
                 isCompleted: false,
             }),
             todoInput: '',
-            activeCount: this.state.activeCount + 1
+            activeCount: activeCount + 1
         })
         this.save()
     }
